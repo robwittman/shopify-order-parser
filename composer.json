@@ -1,0 +1,13 @@
+{
+    "name": "robwittman/shopify-order-parser",
+    "description": "Order parser for Shopify stores (BPP)",
+    "authors": [
+        {
+            "name": "Rob Wittman",
+            "email": "rob@ihsdigital.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3.8"
+    }
+}
