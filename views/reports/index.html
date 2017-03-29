@@ -1,0 +1,45 @@
+{% extends "templates/navbar.html" %}
+
+{% block content %}
+<div class="col-sm-8 col-sm-offset-2">
+    <form class="" action="/reports" method="post">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Generate Report
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class='col-sm-3 control-label'>Store</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="shop_id">
+                            {% for shop in shops %}
+                                <option value="{{shop.id}}">{{shop.myshopify_domain}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class='col-sm-3 control-label'>Report Date</label>
+                    <div class="col-sm-9">
+                        <div class="input-group date" data-provide="datepicker">
+                            <input type="text" class="form-control" name='date'>
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button class='btn btn-primary pull-right' type="submit" name="button">Submit</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('input[name=date]').datepicker();
+    });
+</script>
+{% endblock %}

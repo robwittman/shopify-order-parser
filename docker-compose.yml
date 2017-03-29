@@ -1,0 +1,26 @@
+version: "2"
+services:
+    web:
+        build: .
+        ports:
+            - 80:80
+        links:
+            - postgres
+        volumes:
+            - ./:/var/www/
+            - ./html/.user.ini:/usr/local/etc/php/php.ini
+            - ./logs/output.log:/output.log
+        environment:
+            REDISCLOUD_URL: tcp://redis:6379
+            DATABASE_URL: postgres://postgres:password@postgres/shopify
+            ENV: dev
+    postgres:
+        image: postgres
+        volumes:
+            - ./data/postgres:/var/lib/postgres
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_PASSWORD: password
+            POSTGRES_USER: postgres
+            POSTGRES_DB: shopify
