@@ -31,7 +31,8 @@ class CreateLineItemsTable extends AbstractMigration
     {
         $column = new Column();
         $column->setName('id')
-               ->setType('biginteger')
+               ->setType('string')
+               ->setLimit(45)
                ->setIdentity(true);
         $options = array(
             'id'            => false,
@@ -39,7 +40,7 @@ class CreateLineItemsTable extends AbstractMigration
         );
         $lineItems = $this->table('line_items', $options);
         $lineItems
-            ->addColumn($column)
+            ->addColumn('id', 'string', ['limit' => 45, 'null' => false])
             ->addColumn('product_id', 'biginteger', ['null' => true, 'default' => null])
             ->addColumn('variant_id', 'biginteger', ['null' => true, 'default' => null])
             ->addColumn('vendor', 'string', ['limit' => 45, 'null' => true, 'default' => null])

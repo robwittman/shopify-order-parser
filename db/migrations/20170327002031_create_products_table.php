@@ -28,10 +28,6 @@ class CreateProductsTable extends AbstractMigration
      */
     public function change()
     {
-        $column = new Column();
-        $column->setName('id')
-               ->setType('biginteger')
-               ->setIdentity(true);
         $options = array(
             'id'            => false,
             'primary_key'   => 'id'
@@ -39,12 +35,12 @@ class CreateProductsTable extends AbstractMigration
 
         $products = $this->table('products', $options);
         $products
-            ->addColumn($column)
+            ->addColumn('id', 'string', ['limit' => 45, 'null' => false])
             ->addColumn('body_html', 'text', ['null' => true, 'default' => null])
             ->addColumn('created_at', 'string', ['limit' => 45, 'null' => true, 'default' => null])
             ->addColumn('handle', 'string', ['limit' => 145, 'null' => false])
             ->addColumn('images', 'text', ['null' => true, 'default' => null])
-            ->addColumn('options', 'string', ['limit' => 245, 'null' => true, 'default' => null])
+            ->addColumn('options', 'text', ['null' => true, 'default' => null])
             ->addColumn('product_type', 'string', ['limit' => 145, 'null' => false])
             ->addColumn('tags', 'text', ['null' => true, 'default' => null])
             ->addColumn('vendor', 'string', ['null' => true, 'default' => null])

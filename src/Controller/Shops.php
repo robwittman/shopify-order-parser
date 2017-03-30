@@ -22,6 +22,11 @@ class Shops
 
     public function create($request, $response, $arguments)
     {
+        if ($request->getAttribute('user')->role != 'admin') {
+            $this->flash->addMessage('error', "Only admin can manage shops");
+            return $response->withRedirect('/shops');
+        }
+
         if ($request->isGet()) {
             return $this->view->render($response, 'shops/new.html');
         }
@@ -49,6 +54,11 @@ class Shops
 
     public function show($request, $response, $arguments)
     {
+        if ($request->getAttribute('user')->role != 'admin') {
+            $this->flash->addMessage('error', "Only admin can manage shops");
+            return $response->withRedirect('/shops');
+        }
+
         $shop = Shop::find($arguments['shopId']);
         $res = callShopify($shop, '/admin/shop.json');
         return $this->view->render($response, 'shops/show.html',array(
@@ -59,6 +69,11 @@ class Shops
 
     public function delete($request, $response, $arguments)
     {
+        if ($request->getAttribute('user')->role != 'admin') {
+            $this->flash->addMessage('error', "Only admin can manage shops");
+            return $response->withRedirect('/shops');
+        }
+
         $shop = Shop::find($arguments['id']);
         if (empty($shop)) {
             $this->flash->addMessage('error', "Shop {$arguments['id']} not found");

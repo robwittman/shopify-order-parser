@@ -1,0 +1,27 @@
+{% extends "templates/navbar.html" %}
+
+{% block content %}
+
+<div class="col-sm-6 col-sm-offset-3">
+    <div class="panel panel-default">
+        <form method="post">
+            <div class="panel-heading">
+                Product Search
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class='col-sm-3 control-label'>ID or Handle</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="search" value="" class='form-control'>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" name="button" class='btn btn-primary pull-right'>Submit</button>
+                <div class="clearfix"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

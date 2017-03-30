@@ -39,7 +39,7 @@ class CreateOrdersTable extends AbstractMigration
         );
         $orders = $this->table('orders', $options);
         $orders
-            ->addColumn($column)
+            ->addColumn('id', 'string', ['limit' => 45, 'null' => false])
             ->addColumn('shop_id', 'integer', ['null' => false])
             ->addColumn('created_at', 'string', ['limit' => 145, 'null' => true, 'default' => null])
             ->addColumn('closed_at', 'string', ['limit' => 145, 'null' => true, 'default' => null])

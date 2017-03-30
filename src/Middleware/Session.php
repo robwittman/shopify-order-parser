@@ -16,13 +16,11 @@ class Session
         if (isset($_SESSION['uid'])) {
             $user = User::find($_SESSION['uid']);
             if (empty($user)) {
-                error_log("destroying session");
                 session_destroy();
-                return $response->withRedirect('/auth/login');
+                return $response->withRedirect('/login');
             }
             $request = $request->withAttribute('user', $user);
         }
-        // var_dump($request);
         return $next($request, $response);
     }
 }

@@ -16,9 +16,23 @@ class Products
         $this->flash = $flash;
     }
 
-    public function index($request, $response)
+    public function index($request, $response, $arguments)
     {
-
+        if ($request->isPost()) {
+            $search = $request->getParsedBody()['search'];
+            $product = Product::where('id', '=', $search)
+                ->orWhere('handle', '=', $search)
+                ->first();
+            if(empty($product)) {
+                return $this->view->render($response, 'products/index.html', array(
+                    'error' => "No products found"
+                ));
+            } else {
+                return $response->withRedirect('/products/'.$product->id);
+            }
+        } else {
+            return $this->view->render($response, 'products/index.html');
+        }
     }
 
     public function show($request, $response, $arguments)
@@ -29,18 +43,17 @@ class Products
         ));
     }
 
-    public function create($request, $response)
-    {
-
-    }
-
     public function update($request, $response, $arguments)
     {
+        $product = Product::find($arguments['productId']);
+        if (empty($product)) {
+            exit('Not found');
+        }
+        $params = $request->getParsedBody();
+        $product->color_count = $params['color_count'];
+        $product->save();
 
-    }
-
-    public function delete($request, $response, $arguments)
-    {
-
+        $this->flash->addMessage('message', "Product successfully updated");
+        return $response->withRedirect('/products/'.$arguments['productId']);
     }
 }

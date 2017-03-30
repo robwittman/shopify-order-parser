@@ -58,7 +58,12 @@ do {
             $p->tags = $product->tags;
             $p->vendor = $product->vendor;
             $p->shop_id = $shopId;
-            $p->save();
+            try {
+                $p->save();
+            } catch (\Exception $e) {
+                var_dump($e->getMessage());
+                exit;
+            }
         } else {
             // Add update
         }
@@ -71,7 +76,7 @@ do {
                 $v->shop_id = $shopId;
                 $v->product_id = $product->id;
                 $v->barcode = $variant->barcode;
-                $v->fulfillment_service = $variant->fulfillment_service;
+                // $v->fulfillment_status = $variant->fulfillment_status;
                 $v->grams = $variant->grams;
                 $v->image_id = $variant->image_id;
                 $v->inventory_management = $variant->inventory_management;
@@ -83,7 +88,12 @@ do {
                 $v->price = $variant->price;
                 $v->sku = $variant->sku;
                 $v->title = $variant->title;
-                $v->save();
+                try {
+                    $v->save();
+                } catch(\Exception $e) {
+                    var_dump($e->getMessage());
+                    exit;
+                }
             } else {
                 // Update variants that are already present
             }

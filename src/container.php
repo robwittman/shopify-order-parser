@@ -60,3 +60,9 @@ $container['ProductController'] = function ($c) {
     $flash = $c->get('flash');
     return new \App\Controller\Products($view, $flash);
 };
+
+$container['OrderController'] = function ($c) {
+    $view = $c->get('view');
+    $flash = $c->get('flash');
+    return new \App\Controller\Orders($view, $flash);
+};

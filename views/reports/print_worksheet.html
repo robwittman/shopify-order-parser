@@ -1,0 +1,39 @@
+{% extends "templates/navbar.html" %}
+
+{% block content %}
+<div class="col-sm-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Print Schedule for {{date}}
+        </div>
+        <table class='table table-condensed table-striped'>
+            <tr>
+                <th>Product</th>
+                <th>Title</th>
+                <th>Quantity</th>
+                <th>Color Count</th>
+                <th>Method</th>
+            </tr>
+            {% for product_id, result in results %}
+                <tr>
+                    <td>{{product_id}}</td>
+                    <td>{{result.title}}</td>
+                    <td>{{result.quantity}}</td>
+                    <td>{{result.color_count}}</td>
+                    <td>
+                        {% if result.color_count > 10 %}
+                            DTG (color_count > 10)
+                        {% else %}
+                            {% if result.quantity > 6 %}
+                                Screen (quantity > 6)
+                            {% else %}
+                                DTG
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

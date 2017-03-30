@@ -1,0 +1,31 @@
+{% extends "templates/navbar.html" %}
+
+{% block content %}
+<div class="col-sm-8 col-sm-offset-2">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Sales By Garment for {{date}}
+        </div>
+        <table class='table table-condensed table-striped'>
+            <tr>
+                <th>Quantity</th>
+                <th>Style</th>
+                <th>Color</th>
+                <th>Size</th>
+            </tr>
+            {% for garment, colors in results %}
+                {% for color, sizes in colors %}
+                    {% for size, quantity in sizes %}
+                        <tr>
+                            <td>{{quantity}}</td>
+                            <td>{{garment}}</td>
+                            <td>{{color}}</td>
+                            <td>{{size}}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

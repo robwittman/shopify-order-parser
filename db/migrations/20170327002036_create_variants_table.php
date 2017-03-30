@@ -31,7 +31,8 @@ class CreateVariantsTable extends AbstractMigration
     {
         $column = new Column();
         $column->setName('id')
-               ->setType('biginteger')
+               ->setType('string')
+               ->setLimit(45)
                ->setIdentity(true);
         $options = array(
             'id'            => false,
@@ -39,22 +40,22 @@ class CreateVariantsTable extends AbstractMigration
         );
         $variants = $this->table('variants',$options);
         $variants
-            ->addColumn($column)
+            ->addColumn('id', 'string', ['limit' => 45, 'null' => false])
             ->addColumn('shop_id', 'integer', ['null' => false])
-            ->addColumn('product_id', 'integer', ['limit' => MysqlAdapter::INT_BIG, 'null' => false])
+            ->addColumn('product_id', 'string', ['limit' => 45, 'null' => false])
             ->addColumn('barcode', 'string', ['limit' => 45, 'null' => true, 'default' => null])
             ->addColumn('fufillment_service', 'string', ['limit' => 145, 'null' => true, 'default' => null])
             ->addColumn('grams', 'integer', ['limit' => 45, 'null' => true])
-            ->addColumn('image_id', 'integer', ['limit' => MysqlAdapter::INT_BIG, 'null' => true, 'default' => null])
+            ->addColumn('image_id', 'string', ['limit' => 45, 'null' => true, 'default' => null])
             ->addColumn("inventory_management", "string", ['limit' => 45, 'null' => true, 'default' => null])
             ->addColumn('inventory_policy', 'string', ['limit' => 45, 'null' => true, 'default' => null])
-            ->addColumn('option1', 'string', ['limit' => 45, 'null' => true, 'default' => null])
-            ->addColumn('option2', 'string', ['limit' => 45, 'null' => true, 'default' => null])
-            ->addColumn('option3', 'string', ['limit' => 45, 'null' => true, 'default' => null])
+            ->addColumn('option1', 'string', ['limit' => 145, 'null' => true, 'default' => null])
+            ->addColumn('option2', 'string', ['limit' => 145, 'null' => true, 'default' => null])
+            ->addColumn('option3', 'string', ['limit' => 145, 'null' => true, 'default' => null])
             ->addColumn('position', 'integer', ['null' => false])
             ->addColumn('price', 'string', ['limit' => 45, 'null' => false])
             ->addColumn('sku', 'string', ['limit' => 145, 'null' => true, 'default' => null])
-            ->addColumn('title', 'string', ['limit' => 45, 'null' =>true, 'default' => null])
+            ->addColumn('title', 'string', ['limit' => 145, 'null' =>true, 'default' => null])
             ->addIndex('shop_id')
             ->addIndex('product_id')
             ->create();

@@ -31,6 +31,7 @@ class CreateUsersTable extends AbstractMigration
         $users
             ->addColumn('email', 'string', array('limit' => 145, 'null' => false))
             ->addColumn('password', 'string', array('limit' => 145, 'null' => false))
+            ->addColumn('role', 'string', array('limit' => 45, 'null' => false, 'default' => 'user'))
             ->addIndex('email', array('unique' => true))
             ->create();
     }
