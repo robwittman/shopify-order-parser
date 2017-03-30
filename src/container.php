@@ -66,3 +66,13 @@ $container['OrderController'] = function ($c) {
     $flash = $c->get('flash');
     return new \App\Controller\Orders($view, $flash);
 };
+
+$container['OrderWebhookController'] = function($c) {
+    return new \App\Controller\Webhooks\Orders();
+}
+$container['ProductWebhookController'] = function($c) {
+    return new \App\Controller\Webhooks\Products();
+}
+$container['ShopWebhookController'] = function($c) {
+    return new \App\Controller\Webhooks\Shop();
+}

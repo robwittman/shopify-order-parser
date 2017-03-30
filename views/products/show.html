@@ -1,10 +1,91 @@
 {% extends "templates/navbar.html" %}
 
 {% block content %}
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {{product.id}}
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-3">
+                    <div class="image-container">
+                        <img class='img-responsive' src="{{image.src}}" alt="">
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <table class='table table-bordered table-condensed'>
+                        <tr>
+                            <th>Handle</th>
+                            <td>{{product.handle}}</td>
+                        </tr>
+                        <tr>
+                            <th>Product Type</th>
+                            <td>{{product.product_type}}</td>
+                        </tr>
+                        <tr>
+                            <th>Tags</th>
+                            <td>{{product.tags}}</td>
+                        </tr>
+                        <tr>
+                            <th>Vendor</th>
+                            <td>{{product.vendor}}</td>
+                        </tr>
+                        <tr>
+                            <th>Color Count</th>
+                            <td>
+                                <form action="/products/{{product.id}}" method="post">
+                                    <div class="input-group">
+                                        <input type="text" name="color_count" value="{{product.color_count}}" class='form-control'>
+                                        <span class='input-group-btn'>
+                                            <button type="submit" name="button" class='btn btn-primary'>Update</button>
+                                        </span>
+                                    </div>
+                                </form>
+                                {{product.color_count}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        Product
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Variants
+            </div>
+            {% if product.variants is empty %}
+            {% else %}
+            <table class='table table-condensed table-striped'>
+                <tr>
+                    {% for option in product.options %}
+                    <td>{{option.name}}</td>
+                    {% endfor %}
+                    <td>Price</td>
+                    <td>Sku</td>
+                </tr>
+                {% for variant in product.variants %}
+                <tr>
+                    {% if variant.option1 %}
+                        <td>{{variant.option1}}</td>
+                    {% endif %}
+                    {% if variant.option2 %}
+                        <td>{{variant.option2}}</td>
+                    {% endif %}
+                    {% if variant.option3 %}
+                        <td>{{variant.option3}}</td>
+                    {% endif %}
+                    <td>${{variant.price}}</td>
+                    <td>{{variant.sku}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+        </div>
     </div>
 </div>
 

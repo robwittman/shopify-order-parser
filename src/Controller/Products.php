@@ -38,8 +38,15 @@ class Products
     public function show($request, $response, $arguments)
     {
         $product = Product::with('variants')->find($arguments['productId']);
+        $image = false;
+        foreach ($product->images as $img) {
+            if ($img->position == 1) {
+                $image = $img;
+            }
+        }
         return $this->view->render($response, 'products/show.html', array(
-            'product' => $product
+            'product' => $product,
+            'image' => $image
         ));
     }
 
