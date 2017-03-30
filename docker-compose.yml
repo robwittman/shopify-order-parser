@@ -14,6 +14,7 @@ services:
             REDISCLOUD_URL: tcp://redis:6379
             DATABASE_URL: postgres://postgres:password@postgres/shopify
             ENV: dev
+            WEBHOOK_URL: https://75b267c9.ngrok.io/webhooks/
     postgres:
         image: postgres
         volumes:

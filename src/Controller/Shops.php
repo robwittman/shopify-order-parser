@@ -6,6 +6,15 @@ use App\Model\Shop;
 
 class Shops
 {
+    public static $webhooks = array(
+        'products/create',
+        'products/update',
+        'products/delete',
+        'orders/create',
+        'orders/updated',
+        'orders/delete',
+        'shop/update'
+    );
     public function __construct($view, $flash)
     {
         $this->view = $view;
@@ -40,6 +49,15 @@ class Shops
 
         $res = callShopify($shop, '/admin/shop.json');
         $shop->id = $res->shop->id;
+
+        foreach (static::$webhooks as $webhook) {
+            callShopify($shop, '/admin/webhooks.json', 'POST', array(
+                'webhook' => array(
+                    'topic' => $webhook,
+                    'address' => getenv("WEBHOOK_URL").$webhook
+                )
+            ));
+        }
 
         try {
             $shop->save();

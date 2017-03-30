@@ -13,6 +13,6 @@ class ValidateWebhook
 
     public function __invoke($request, $response, $next)
     {
-        return true;
+        return $next($request, $response);
     }
 }

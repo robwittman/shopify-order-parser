@@ -53,7 +53,7 @@ $app->group('/webhooks', function() use ($app) {
     });
     $app->group('/orders', function() use ($app) {
         $app->post('/create', 'OrderWebhookController:create');
-        $app->post('/update', 'OrderWebhookController:update');
+        $app->post('/updated', 'OrderWebhookController:update');
         $app->post('/delete', 'OrderWebhookController:delete');
     });
 
