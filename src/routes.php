@@ -15,7 +15,7 @@ $app->group('/shops', function() use ($app) {
     $app->get('/{shopId}', "ShopController:show");
     $app->delete("/{shopId}", "ShopController:delete");
     $app->get("/{shopId}/delete", "ShopController:delete");
-})add(new \App\Middleware\Authorization())->add(new \App\Middleware\Session());
+})->add(new \App\Middleware\Authorization())->add(new \App\Middleware\Session());
 
 $app->group('/users', function () use ($app) {
     $app->get('', "UserController:index");
@@ -26,24 +26,24 @@ $app->group('/users', function () use ($app) {
         $app->post('', "UserController:update");
         $app->map(array("GET", "POST"), '/delete', "UserController:delete");
     });
-})add(new \App\Middleware\Authorization())->add(new \App\Middleware\Session());
+})->add(new \App\Middleware\Authorization())->add(new \App\Middleware\Session());
 
 $app->group('/reports', function() use ($app) {
     $app->get('', 'ReportController:index');
     $app->post('', 'ReportController:create');
     // $app->get('/test', 'ReportController:scheduleTest');
-})add(new \App\Middleware\Authorization())->add(new \App\Middleware\Session());
+})->add(new \App\Middleware\Authorization())->add(new \App\Middleware\Session());
 
 $app->group('/products', function() use ($app) {
     $app->map(['GET','POST'], '', 'ProductController:index');
     $app->get('/{productId}', 'ProductController:show');
     $app->put('/{productId}', 'ProductController:up1date');
-})add(new \App\Middleware\Authorization())->add(new \App\Middleware\Session());
+})->add(new \App\Middleware\Authorization())->add(new \App\Middleware\Session());
 
 $app->group('/orders', function() use ($app) {
     $app->get('', 'OrderController:index');
     $app->get('/{orderId}', 'OrderController:show');
-})add(new \App\Middleware\Authorization())->add(new \App\Middleware\Session());
+})->add(new \App\Middleware\Authorization())->add(new \App\Middleware\Session());
 
 $app->group('/webhooks', function() use ($app) {
     $app->group('/products', function() use ($app) {
