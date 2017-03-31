@@ -16,7 +16,8 @@
         "slim/twig-view": "^2.2",
         "slim/flash": "^0.2.0",
         "illuminate/database": "^5.4",
-        "plasticbrain/php-flash-messages": "^1.0"
+        "plasticbrain/php-flash-messages": "^1.0",
+        "nesbot/carbon": "^1.22"
     },
     "autoload" : {
         "psr-4" : {

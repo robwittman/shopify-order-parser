@@ -65,9 +65,12 @@ do {
             $o->total_line_items_price = $order->total_line_items_price;
             $o->total_price = $order->total_price;
             $o->total_tax = $order->total_tax;
+            $o->created_date = date('Y-m-d', strtotime($order->created_at));
             $o->save();
         } else {
             // Update order
+            $o->created_date = date('Y-m-d', strtotime($order->created_at));
+            $o->save();
         }
         foreach ($order->line_items as $line_item) {
             $li = LineItem::find($line_item->id);

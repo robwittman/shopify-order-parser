@@ -48,6 +48,7 @@ class Orders
             $o->total_line_items_price = $data['total_line_items_price'];
             $o->total_price         = $data['total_price'];
             $o->total_tax           = $data['total_tax'];
+            $o->created_date        = date('Y-m-d', strtotime($data['created_at']));
             $o->save();
         } else {
             $order->closed_at               = $data['closed_at'];

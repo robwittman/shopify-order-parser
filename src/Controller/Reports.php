@@ -8,6 +8,8 @@ use App\Model\Product;
 use App\Model\ProductVariant;
 use App\Model\LineItem;
 
+use Carbon\Carbon;
+
 class Reports
 {
     const GARMENT_REPORT = 'sales_by_garment';
@@ -30,17 +32,21 @@ class Reports
 
     public function create($request, $response, $arguments)
     {
-        $date = $request->getParsedBody()['report_date'];
-        $type = $request->getParsedBody()['report_type'];
-        $store = $request->getParsedBody()['store'];
-        $start = (new \DateTime($date))->setTime(00,00,00)->format('c');
-        $end = (new \DateTime($date))->setTime(23,59,59)->format('c');
+        $params = $request->getParsedBody();
+
+        $start = !empty($params['start_date']) ? $params['start_date'] : null;
+        $end = !empty($params['end_date']) ? $params['end_date'] : null;
+
+        $type = $params['report_type'];
+        $stores = array_map(function ($shop) {
+            return (int) $shop;
+        }, $params['stores']);
         switch($type) {
             case self::GARMENT_REPORT:
-                $report = $this->createGarmentReport($store, $start, $end);
+                $report = $this->createGarmentReport($stores, $start, $end);
                 break;
             case self::PRINT_SCHEDULE:
-                $report = $this->getPrintSchedule($store, $start, $end);
+                $report = $this->getPrintSchedule($stores, $start, $end);
                 break;
             default:
                 throw new \Exception("Unsupported report type {$type}");
@@ -84,13 +90,18 @@ class Reports
      * @param  string $end   DateTime in 'c' format
      * @return array
      */
-    public function createGarmentReport($store, $start, $end)
+    public function createGarmentReport($stores, $start = null, $end = null)
     {
-        $orders = Order::where('created_at','<=',$end)
-                       ->where('created_at', '>=', $start)
-                       ->where('shop_id', '=', $store)
-                       ->get();
+        $qb = Order::whereIn('shop_id', $stores);
+        if (!is_null($start)) {
+            $qb->whereDate('created_at', '>=', Carbon::createFromFormat('Y-m-d', $start)->toDateString());
+        }
+        if (!is_null($end)) {
+            $qb->whereDate('created_at', '<=', Carbon::createFromFormat('Y-m-d', $end)->toDateString());
+        }
+        $orders = $qb->get();
         $result = array();
+
         foreach ($orders as $order) {
             $line_items = LineItem::where('order_id', '=', $order->id)
                                     ->where('vendor', '=', 'BPP')
@@ -146,12 +157,17 @@ class Reports
      * @param  DateTime $end   DateTime in 'c' format'
      * @return array
      */
-    public function getPrintSchedule($store, $start, $end)
+    public function getPrintSchedule($stores, $start = null, $end = null)
     {
-        $orders = Order::where('created_at','<=',$end)
-                       ->where('created_at', '>=', $start)
-                       ->where('shop_id', '=', $store)
-                       ->get();
+        $qb = Order::whereIn('shop_id', $stores);
+        exit(Carbon::createFromFormat('Y-m-d', $start)->toDateString());
+        if (!is_null($start)) {
+            $qb->whereDate('created_at', '>=', Carbon::createFromFormat('Y-m-d', $start)->toDateString());
+        }
+        if (!is_null($end)) {
+            $qb->whereDate('created_at', '<=', Carbon::createFromFormat('Y-m-d', $end)->toDateString());
+        }
+        $orders = $qb->get();
         $result = array();
         foreach ($orders as $order) {
             $line_items = LineItem::where('order_id', '=', $order->id)
