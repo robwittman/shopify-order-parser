@@ -35,7 +35,7 @@ class Orders
         if (empty($order)) {
             $o = new Order();
             $o->id                  = $data['id'];
-            $o->shop_id             = $request->getAttribute('shop_id');
+            $o->shop_id             = $shop_id;
             $o->created_at          = $data['created_at'];
             $o->closed_at           = $data['closed_at'];
             $o->cancelled_at        = $data['cancelled_at'];
@@ -86,7 +86,7 @@ class Orders
                 $li->price          = $item['price'];
                 $li->title          = $item['title'];
                 $li->order_id       = $data['id'];
-                $li->shop_id        = $request->getAttribute('shop_id');
+                $li->shop_id        = $shop_id;
                 $li->save();
             } else {
                 $line_item->product_id  = $item['product_id'];
