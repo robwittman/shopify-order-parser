@@ -7,6 +7,10 @@ use App\Model\LineItem;
 
 class Orders
 {
+    public function __construct()
+    {
+        error_log("Loaded orders")
+    }
     public function create($request, $response)
     {
         $order = $request->getParsedBody();
