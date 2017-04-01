@@ -160,7 +160,6 @@ class Reports
     public function getPrintSchedule($stores, $start = null, $end = null)
     {
         $qb = Order::whereIn('shop_id', $stores);
-        exit(Carbon::createFromFormat('Y-m-d', $start)->toDateString());
         if (!is_null($start)) {
             $qb->whereDate('created_at', '>=', Carbon::createFromFormat('Y-m-d', $start)->toDateString());
         }
