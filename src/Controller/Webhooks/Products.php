@@ -10,13 +10,13 @@ class Products
     public function create($request, $response)
     {
         $product = $request->getParsedBody();
-        $this->save($product);
+        $this->save($product, $request->getAttribute('shop_id'));
     }
 
     public function update($request, $response)
     {
         $product = $request->getParsedBody();
-        $this->save($product);
+        $this->save($product, $request->getAttribute('shop_id'));
     }
 
     public function delete($request, $response)
@@ -25,7 +25,7 @@ class Products
         Product::delete($product['id']);
     }
 
-    public function save($data)
+    public function save($data, $shop_id)
     {
         $product = Product::find($data['id']);
         if (empty($product)) {
@@ -40,7 +40,7 @@ class Products
             $p->product_type= $data['product_type'];
             $p->tags        = $data['tags'];
             $p->vendor      = $data['vendor'];
-            $p->shop_id     = $request->getAttribute('shop_id');
+            $p->shop_id     = $shop_id;
             $p->save();
         } else {
             $product->vendor    = $data['vendor'];
@@ -59,7 +59,7 @@ class Products
             if (empty($variant)) {
                 $v = new ProductVariant();
                 $v->id                  = $var['id'];
-                $v->shop_id             = $request->getAttribute('shop_id');
+                $v->shop_id             = $shop_id;
                 $v->product_id          = $data['id'];
                 $v->barcode             = $var['barcode'];
                 // $v->fulfillment_status = $var['fulfillment_status'];

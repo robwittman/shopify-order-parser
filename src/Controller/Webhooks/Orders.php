@@ -14,13 +14,13 @@ class Orders
     public function create($request, $response)
     {
         $order = $request->getParsedBody();
-        $this->save($order);
+        $this->save($order, $request->getAttribute('shop_id'));
     }
 
     public function update($request, $response)
     {
         $order = $request->getParsedBody();
-        $this->save($order);
+        $this->save($order, $request->getAttribute('shop_id'));
     }
 
     public function delete($request, $response)
@@ -29,7 +29,7 @@ class Orders
         Order::delete($order['id']);
     }
 
-    public function save($data)
+    public function save($data, $shop_id)
     {
         $order = Order::find($data['id']);
         if (empty($order)) {
