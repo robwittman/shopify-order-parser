@@ -54,7 +54,7 @@ class Shops
             callShopify($shop, '/admin/webhooks.json', 'POST', array(
                 'webhook' => array(
                     'topic' => $webhook,
-                    'address' => getenv("WEBHOOK_URL").$webhook
+                    'address' => getenv("WEBHOOK_URL").'webhooks/'.$webhook
                 )
             ));
         }
