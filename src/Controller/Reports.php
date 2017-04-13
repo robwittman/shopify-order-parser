@@ -189,7 +189,7 @@ class Reports
         }
 
         usort($result, function($a, $b) {
-            return $a > $b;
+            return $a['quantity'] > $b['quantity'];
         });
         return $result;
     }
