@@ -181,7 +181,8 @@ class Reports
                     $result[$product->id] = array(
                         'title' => $line_item->title,
                         'quantity' => 0,
-                        'color_count' => $product->color_count
+                        'color_count' => $product->color_count,
+                        'product_id' => $product->id
                     );
                 }
                 $result[$product->id]['quantity'] += $line_item->quantity;
