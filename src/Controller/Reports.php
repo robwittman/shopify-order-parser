@@ -187,6 +187,10 @@ class Reports
                 $result[$product->id]['quantity'] += $line_item->quantity;
             }
         }
+
+        usort($result, function($a, $b) {
+            return $a > $b;
+        });
         return $result;
     }
 }
