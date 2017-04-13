@@ -14,7 +14,7 @@
                         {% for store in shops %}
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="stores[]" value="{{store.id}}">
+                                <input type="checkbox" name="stores[]" value="{{store.id}}" checked>
                                 {{store.myshopify_domain}}
                             </label>
                         </div>
@@ -70,9 +70,11 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('input[name=start_date]').datepicker({
+            setDate: new Date(),
             format: 'yyyy-mm-dd'
         });
         $('input[name=end_date]').datepicker({
+            setDate: new Date(),
             format: 'yyyy-mm-dd'
         });
     });
