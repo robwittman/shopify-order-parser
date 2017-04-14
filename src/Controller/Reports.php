@@ -173,18 +173,50 @@ class Reports
                                     ->where('vendor', '=', 'BPP')
                                     ->get();
             foreach ($line_items as $line_item) {
+                $size = null;
+                $color = null;
+                $style = null;
                 $product = Product::find($line_item->product_id);
+                $variant = ProductVariant::find($line_item->variant_id);
                 if (empty($product)) {
                     throw new \Exception("Product {$line_item->product_id} was missing!");
+                }
+                foreach ($product->options as $option) {
+                    $opt = 'option'.$option->position;
+                    if ($option->name == 'Size') {
+                        $size = $opt;
+                    } else if($option->name == 'Color') {
+                        $color = $opt;
+                    } else if ($option->name == 'Style') {
+                        $style = $opt;
+                    }
                 }
                 if (!isset($result[$product->id])) {
                     $result[$product->id] = array(
                         'title' => $line_item->title,
                         'quantity' => 0,
                         'color_count' => $product->color_count,
-                        'product_id' => $product->id
+                        'product_id' => $product->id,
+                        'breakdown' => array();
                     );
                 }
+                $varSize = $line_item->{$size};
+                $varColor = $line_item->{$color};
+                if (is_null($style)) {
+
+                } else {
+                    $varStyle = $variant->{$style};
+                }
+                if (!isset($result[$product->id['breakdown'][$varStyle])) {
+                    $result[$product->id['breakdown'][$varStyle] = array();
+                }
+                if (!isset($result[$product->id['breakdown'][$varStyle][$varColor])) {
+                    $result[$product->id['breakdown'][$varStyle][$varColor] = array();
+                }
+                if (!isset($result[$product->id['breakdown'][$varStyle][$varColor][$varSize])) {
+                    $result[$product->id['breakdown'][$varStyle][$varColor][$varSize] = 0;
+                }
+                $result[$product->id['breakdown'][$varStyle][$varColor][$varSize] += $line_item->quantity;
                 $result[$product->id]['quantity'] += $line_item->quantity;
             }
         }
