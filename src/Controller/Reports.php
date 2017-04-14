@@ -217,6 +217,7 @@ class Reports
                     $result[$product->id]['breakdown'][$varStyle][$varColor][$varSize] = 0;
                 }
                 $result[$product->id]['breakdown'][$varStyle][$varColor][$varSize] += $line_item->quantity;
+                error_log(json_encode($result[$product->id]['breakdown']));
                 $result[$product->id]['quantity'] += $line_item->quantity;
             }
         }
