@@ -200,8 +200,8 @@ class Reports
                         'breakdown' => array()
                     );
                 }
-                $varSize = $line_item->{$size};
-                $varColor = $line_item->{$color};
+                $varSize = $variant->{$size};
+                $varColor = $variant->{$color};
                 if (is_null($style)) {
 
                 } else {
