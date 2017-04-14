@@ -197,7 +197,7 @@ class Reports
                         'quantity' => 0,
                         'color_count' => $product->color_count,
                         'product_id' => $product->id,
-                        'breakdown' => array();
+                        'breakdown' => array()
                     );
                 }
                 $varSize = $line_item->{$size};
