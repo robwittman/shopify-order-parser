@@ -207,16 +207,16 @@ class Reports
                 } else {
                     $varStyle = $variant->{$style};
                 }
-                if (!isset($result[$product->id['breakdown'][$varStyle])) {
-                    $result[$product->id['breakdown'][$varStyle] = array();
+                if (!isset($result[$product->id]['breakdown'][$varStyle])) {
+                    $result[$product->id]['breakdown'][$varStyle] = array();
                 }
-                if (!isset($result[$product->id['breakdown'][$varStyle][$varColor])) {
-                    $result[$product->id['breakdown'][$varStyle][$varColor] = array();
+                if (!isset($result[$product->id]['breakdown'][$varStyle][$varColor])) {
+                    $result[$product->id]['breakdown'][$varStyle][$varColor] = array();
                 }
-                if (!isset($result[$product->id['breakdown'][$varStyle][$varColor][$varSize])) {
-                    $result[$product->id['breakdown'][$varStyle][$varColor][$varSize] = 0;
+                if (!isset($result[$product->id]['breakdown'][$varStyle][$varColor][$varSize])) {
+                    $result[$product->id]['breakdown'][$varStyle][$varColor][$varSize] = 0;
                 }
-                $result[$product->id['breakdown'][$varStyle][$varColor][$varSize] += $line_item->quantity;
+                $result[$product->id]['breakdown'][$varStyle][$varColor][$varSize] += $line_item->quantity;
                 $result[$product->id]['quantity'] += $line_item->quantity;
             }
         }
