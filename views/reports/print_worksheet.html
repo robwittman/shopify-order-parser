@@ -15,7 +15,7 @@
                 <th>Method</th>
             </tr>
             {% for product_id, result in results %}
-                <tr data-id="{{result.product_id}}" data-toggle='collapse' data-target="#collapse-{{result.product_id}}">
+                <tr class='accordion-toggle' data-id="{{result.product_id}}" data-toggle='collapse' data-target="#collapse-{{result.product_id}}">
                     <td>{{result.product_id}}</td>
                     <td>{{result.title}}</td>
                     <td>{{result.quantity}}</td>
@@ -33,26 +33,30 @@
                     </td>
                 </tr>
                 <tr>
-                    <table class='table table-condensed'>
-                        <tr>
-                            <td>Garment</td>
-                            <td>Color</td>
-                            <td>Size</td>
-                            <td>Quantity</td>
-                        </tr>
-                        {% for style, colors in result.breakdown %}
-                            {% for color, sizes in colors %}
-                             {% for size, quantity in sizes %}
+                    <td colspan='5' class='hiddenRow'>
+                        <div class="accorion-body collapse">
+                            <table class='table table-condensed'>
                                 <tr>
-                                    <td>{{style}}</td>
-                                    <td>{{color}}</td>
-                                    <td>{{size}}</td>
-                                    <td>{{quantity}}</td>
+                                    <td>Garment</td>
+                                    <td>Color</td>
+                                    <td>Size</td>
+                                    <td>Quantity</td>
                                 </tr>
+                                {% for style, colors in result.breakdown %}
+                                    {% for color, sizes in colors %}
+                                     {% for size, quantity in sizes %}
+                                        <tr>
+                                            <td>{{style}}</td>
+                                            <td>{{color}}</td>
+                                            <td>{{size}}</td>
+                                            <td>{{quantity}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% endfor %}
                                 {% endfor %}
-                            {% endfor %}
-                        {% endfor %}
-                    </table>
+                            </table>
+                        </div>
+                    </td>
                 </tr>
             {% endfor %}
         </table>
